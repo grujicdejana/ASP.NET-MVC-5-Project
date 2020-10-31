@@ -1,0 +1,32 @@
+﻿@model List<VidlyProject.Models.Movie>
+
+@{
+    ViewBag.Title = "GetMovies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Movies</h2>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Movies</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td><a href="/Movies/Details?idMovie=@movie.Id">@movie.Name</a></td>
+                <td>@movie.Genre.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+

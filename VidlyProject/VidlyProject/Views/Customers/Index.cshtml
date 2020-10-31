@@ -1,0 +1,42 @@
+﻿@model List<VidlyProject.Models.Customer>
+
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+
+@if (!Model.Any())
+{
+    <p>We don't have any customer yet.</p>
+}
+else
+{
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Discount Rate</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var cust in Model)
+            {
+                <tr>
+                    <td><a href="/Customers/Details?idCustomer=@cust.Id">@cust.Name</a></td>
+                    @*<td>@cust.MembershipType.DiscountRate%/</td>*@ <!--ovako nece moci, jer se mogu ucitati samo objekti klase, a ne i njeni referencirajuci-->
+                    <!--zato trebamo ucitati customers i membershiptypes zajedno-->
+                    <td>@cust.MembershipType.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
