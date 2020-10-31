@@ -29,7 +29,7 @@ else
             @foreach (var cust in Model)
             {
                 <tr>
-                    <td><a href="/Customers/Details?idCustomer=@cust.Id">@cust.Name</a></td>
+                    <td><a href="/Customers/Edit?idCustomer=@cust.Id">@cust.Name</a></td>
                     @*<td>@cust.MembershipType.DiscountRate%/</td>*@ <!--ovako nece moci, jer se mogu ucitati samo objekti klase, a ne i njeni referencirajuci-->
                     <!--zato trebamo ucitati customers i membershiptypes zajedno-->
                     <td>@cust.MembershipType.Name</td>
