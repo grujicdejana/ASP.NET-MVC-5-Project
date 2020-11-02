@@ -6,12 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using VidlyProject.Models;
 using VidlyProject.ViewModels;
+using System.Data.Entity.Validation;
 
 namespace VidlyProject.Controllers
 {
     public class MoviesController : Controller
-    {
-        
+    {   
         private ApplicationDbContext _context;
 
         public MoviesController()
@@ -58,6 +58,60 @@ namespace VidlyProject.Controllers
         }
 
         [HttpGet]
+        public ActionResult MovieForm()
+        {
+            var genreTypes = _context.Genres.ToList();
+
+            var viewModel = new MovieViewModel
+            {
+                Genres = genreTypes
+            };
+
+            ViewBag.Title = "New Movie";
+
+            return View("MovieForm", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Movie movie)
+        {
+            if(movie.Id == 0)
+            {
+                _context.Movies.Add(movie);
+            }
+            else
+            {
+                var movieById = _context.Movies.Where(c => c.Id == movie.Id).SingleOrDefault();
+                movieById.Name = movie.Name;
+                movieById.ReleaseDate = movie.ReleaseDate;
+                movieById.DateAdded = movie.DateAdded;
+                movieById.GenreId = movie.GenreId;
+                movieById.NumberInStock = movie.NumberInStock;
+            }
+
+            /*try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                Console.WriteLine(e);
+            }*/
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch(DbEntityValidationException e)
+            {
+                Console.WriteLine(e);
+            }
+            
+
+            return RedirectToAction("GetMovies", "Movies");
+        }
+
+        [HttpGet]
         public ActionResult Details(int idMovie)
         {
             var movie = _context.Movies.Include(c => c.Genre).SingleOrDefault(c => c.Id == idMovie);
@@ -68,9 +122,22 @@ namespace VidlyProject.Controllers
             return View(movie);
         }
 
-        /*public ActionResult Edit(int id)
+        public ActionResult Edit(int idMovie)
         {
-            return Content("id = " + id);
-        }*/
+            var movie = _context.Movies.Where(c => c.Id == idMovie).FirstOrDefault();
+
+            if(movie == null)        
+                return HttpNotFound();           
+
+            var viewModel = new MovieViewModel
+            {
+                Movie = movie,
+                Genres = _context.Genres.ToList()
+            };
+
+            ViewBag.Title = "Edit Movie";
+
+            return View("MovieForm", viewModel);
+        }
     }
 }

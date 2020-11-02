@@ -7,7 +7,10 @@
 
 
 <h2>Movies</h2>
-
+   
+<a href="/Movies/MovieForm" class="btn btn-primary">NEW MOVIE</a>
+<br />
+<br />
 <table class="table table-hover table-bordered">
     <thead>
         <tr>
@@ -20,7 +23,7 @@
         @foreach (var movie in Model)
         {
             <tr>
-                <td><a href="/Movies/Details?idMovie=@movie.Id">@movie.Name</a></td>
+                <td><a href="/Movies/Edit?idMovie=@movie.Id">@movie.Name</a></td>
                 <td>@movie.Genre.Name</td>
             </tr>
         }
