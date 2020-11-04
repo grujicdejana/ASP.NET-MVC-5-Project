@@ -73,8 +73,20 @@ namespace VidlyProject.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+            if(!ModelState.IsValid)
+            {
+                var viewModel = new MovieViewModel
+                {
+                    Movie = movie,
+                    Genres = _context.Genres.ToList()
+                };
+
+                return View("MovieForm", viewModel);
+            }
+
             if(movie.Id == 0)
             {
                 _context.Movies.Add(movie);
@@ -89,24 +101,14 @@ namespace VidlyProject.Controllers
                 movieById.NumberInStock = movie.NumberInStock;
             }
 
-            /*try
+            try
             {
                 _context.SaveChanges();
             }
             catch (DbEntityValidationException e)
             {
                 Console.WriteLine(e);
-            }*/
-
-            try
-            {
-                _context.SaveChanges();
             }
-            catch(DbEntityValidationException e)
-            {
-                Console.WriteLine(e);
-            }
-            
 
             return RedirectToAction("GetMovies", "Movies");
         }

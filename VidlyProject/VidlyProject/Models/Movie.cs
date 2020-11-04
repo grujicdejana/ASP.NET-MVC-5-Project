@@ -10,6 +10,7 @@ namespace VidlyProject.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public Genre Genre { get; set; }
@@ -24,6 +25,8 @@ namespace VidlyProject.Models
 
         [Required]
         [Display(Name = "Number in stock")]
+        //[NumberInStockCustomValidation]
+        [Range(1,20)]
         public int NumberInStock { get; set; }
     }
 }
