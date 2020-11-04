@@ -43,6 +43,13 @@ namespace VidlyProject.Controllers
             var membershipTypes = _context.MembershipTypes.ToList();
             var viewModel = new CustomerFormViewModel
             {
+                /*Customer = new Customer() je dodato, jer nakon sto je u View 
+                 dodati ValidationSummary izbacice i error za Id koji je dodat kao hidden,
+                 ali kada se pogleda inspect vidi se da value nema vrijednost, posmatra se kao 
+                 prazan string, a MVC framework ne zna kako da prevede prazan string u int.
+                 Zato kada napravimo objekat Customer, njegovi parametri dobiju default-ne vr.
+                 Tako id dobije vr. nula i njegov error nece biti ispisan*/
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
 
@@ -50,8 +57,20 @@ namespace VidlyProject.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
+            if(!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+
+                return View("CustomerForm", viewModel);
+            }
+
             if (customer.Id == 0)
                 _context.Customers.Add(customer);
             else

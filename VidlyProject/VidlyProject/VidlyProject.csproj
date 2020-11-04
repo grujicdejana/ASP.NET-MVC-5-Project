@@ -245,6 +245,10 @@
     <Compile Include="Migrations\202010310105059_ApplyAnnotationsToMovie.Designer.cs">
       <DependentUpon>202010310105059_ApplyAnnotationsToMovie.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011021753094_ApplyAnnotationToMembershipTypeName.cs" />
+    <Compile Include="Migrations\202011021753094_ApplyAnnotationToMembershipTypeName.Designer.cs">
+      <DependentUpon>202011021753094_ApplyAnnotationToMembershipTypeName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -252,6 +256,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\Min18YearsIfAMember.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -389,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010310105059_ApplyAnnotationsToMovie.resx">
       <DependentUpon>202010310105059_ApplyAnnotationsToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011021753094_ApplyAnnotationToMembershipTypeName.resx">
+      <DependentUpon>202011021753094_ApplyAnnotationToMembershipTypeName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
