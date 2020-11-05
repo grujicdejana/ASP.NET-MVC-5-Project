@@ -14,6 +14,8 @@ namespace VidlyProject.Dtos
         [StringLength(225)]
         public string Name { get; set; }
 
+        public GenreDto Genre { get; set; }
+
         public byte GenreId { get; set; }
 
         //[Required]
