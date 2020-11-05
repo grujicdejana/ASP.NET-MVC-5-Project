@@ -31,9 +31,11 @@ namespace VidlyProject.Controllers
 
             //na ovaj nacin preuzimamo sve customer iz baze
 
-            
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList(); //include membership type kako bi se prikazalo na webu, jer je membership type referencirajuca klasa
-            return View(customers);
+
+            /*var customers = _context.Customers.Include(c => c.MembershipType).ToList(); //include membership type kako bi se prikazalo na webu, jer je membership type referencirajuca klasa
+            return View(customers);*/
+
+            return View();
         }
 
         //Add Customer
