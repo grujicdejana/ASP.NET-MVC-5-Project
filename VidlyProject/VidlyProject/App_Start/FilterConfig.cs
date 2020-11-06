@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿ using System.Web;
 using System.Web.Mvc;
 
 namespace VidlyProject
@@ -7,7 +7,8 @@ namespace VidlyProject
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new HandleErrorAttribute()); //ovaj filter redirektuje korisnika na error stranicu
+            filters.Add(new AuthorizeAttribute());
         }
     }
 }

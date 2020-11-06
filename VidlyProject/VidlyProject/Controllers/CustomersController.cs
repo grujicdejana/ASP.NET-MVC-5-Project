@@ -9,6 +9,7 @@ using VidlyProject.ViewModels;
 
 namespace VidlyProject.Controllers
 {
+    //[Authorize]
     public class CustomersController : Controller
     {
         private ApplicationDbContext _context;
@@ -25,6 +26,7 @@ namespace VidlyProject.Controllers
 
         // GET: Customers
         [HttpGet]
+        //[Authorize]
         public ActionResult Index()
         {
             /*List<Customer> customers = GetCustomers();*/

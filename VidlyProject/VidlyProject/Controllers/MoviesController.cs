@@ -52,12 +52,17 @@ namespace VidlyProject.Controllers
                 new Movie {Name = "Wall-e"}
             };*/
 
-            var movies = _context.Movies.Include(c => c.Genre).ToList();
+            //var movies = _context.Movies.Include(c => c.Genre).ToList();
 
-            return View(movies);
+            //return View(movies);
+
+            if (User.IsInRole(RoleName.CanManageMovies))
+                return View("List");
+
+            return View("ReadOnlyList");
         }
 
-        [HttpGet]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult MovieForm()
         {
             var genreTypes = _context.Genres.ToList();
@@ -74,6 +79,7 @@ namespace VidlyProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Save(Movie movie)
         {
             if(!ModelState.IsValid)
@@ -124,6 +130,7 @@ namespace VidlyProject.Controllers
             return View(movie);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Edit(int idMovie)
         {
             var movie = _context.Movies.Where(c => c.Id == idMovie).FirstOrDefault();
