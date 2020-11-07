@@ -9,6 +9,7 @@ namespace VidlyProject
         {
             filters.Add(new HandleErrorAttribute()); //ovaj filter redirektuje korisnika na error stranicu
             filters.Add(new AuthorizeAttribute());
+            filters.Add(new RequireHttpsAttribute());
         }
     }
 }
