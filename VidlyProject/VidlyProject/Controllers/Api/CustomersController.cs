@@ -35,7 +35,6 @@ namespace VidlyProject.Controllers.Api
             var customersQuery = _context.Customers
                 .Include(c => c.MembershipType);
 
-
             if (!String.IsNullOrWhiteSpace(query))
                 customersQuery = customersQuery.Where(c => c.Name.Contains(query));
 
