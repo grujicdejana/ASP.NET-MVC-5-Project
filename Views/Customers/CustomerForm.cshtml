@@ -1,0 +1,65 @@
+﻿@model VidlyProject.ViewModels.CustomerFormViewModel
+
+@{
+    ViewBag.Title = "New";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+
+@*
+    @using (Html.BeginForm("Create", "Customers" ))
+    {
+
+    }
+*@
+
+<form method="post" action="/Customers/Save">
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        <!--<label for="Name">Name</label>
+        <input type="text" placeholder="Name" id="Name" name="Name" value="" class="form-control" />
+        -->
+
+        @Html.LabelFor(m => m.Customer.Name)
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.Name)
+    </div>
+
+    <!--<div class="checkbox">
+        <label>
+            <input type="checkbox" id="IsSubscribedToNewsletter" name="IsSubscribedToNewsletter"/> Subscribed To Newsletter?
+        </label>
+    </div>-->
+
+    <div class="form-group">
+        <label>Membership type</label><br />
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membersip Type", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId)
+    </div>
+
+    <div class="form-group">
+        <!--<label for="Birthdate">Birthdate</label>
+        <input type="date" placeholder="Birthdate" id="Birthdate" name="Birthdate" class="form-control" />
+        -->
+
+        @Html.LabelFor(m => m.Customer.Birthdate)
+        @Html.TextBoxFor(m => m.Customer.Birthdate, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.Birthdate)
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter) Subscribed To Newsletter?
+        </label>
+    </div>
+    <br />
+    @Html.HiddenFor(m => m.Customer.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval");
+}
